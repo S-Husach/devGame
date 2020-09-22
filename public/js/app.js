@@ -2889,10 +2889,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -25526,19 +25522,6 @@ var staticRenderFns = [
                             ])
                           ])
                         ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between"
-                        },
-                        [
-                          _vm._v(
-                            "\n                  some space\n              "
-                          )
-                        ]
                       )
                     ]
                   )
@@ -26883,7 +26866,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("app-layout", [
-    _c("div", { staticClass: "py-12" }, [
+    _c("div", { staticClass: "py-4" }, [
       _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
         _c("div", [
           _c(

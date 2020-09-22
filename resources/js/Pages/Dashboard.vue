@@ -1,6 +1,6 @@
 <template>
   <app-layout>
-    <div class="py-12">
+    <div class="py-4">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div>
           <h2 class="text-2xl font-semibold ml-5 leading-tight">September Top</h2>

@@ -164,10 +164,6 @@
 
                   </tbody>
                 </table>
-                <div
-                    class="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between">
-                    some space
-                </div>
               </div>
             </div>
           </div>
