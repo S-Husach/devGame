@@ -143,7 +143,7 @@ new-migration:
 
 .PHONY: run-migrations
 run-migrations:
-	docker exec -it $(PHP_CONTAINER_NAME) bash -c "php artisan migrate"
+	docker exec -it $(WORKSPACE_CONTAINER_NAME) bash -c "php artisan migrate"
 
 .PHONY: run-seeds
 run-seeds:

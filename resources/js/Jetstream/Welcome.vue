@@ -4,37 +4,50 @@
       <div>
         <div class="container mx-auto">
           <div>
-
-
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-x-auto">
-              <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <div class="min-w-full shadow rounded-lg overflow-hidden">
                 <table class="min-w-full leading-normal">
                   <thead>
                     <tr>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >User</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'name'">User</a>
+                      </th>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >Time</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'fulltime'">Time</a>
+                      </th>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >Mentoring</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'mentoring'">Mentoring</a>
+                      </th>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >Responsibility</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'responsibility'"
+                          >Responsibility</a
+                        >
+                      </th>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >Codestyle</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'codestyle'">Codestyle</a>
+                      </th>
                       <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >Result</th>
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-green-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        <a @click="sortParam = 'results'">Result</a>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <tr v-for="(vote, index) in votes" :key="index">
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
                             <img
@@ -44,124 +57,48 @@
                             />
                           </div>
                           <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">Vera Carpenter</p>
+                            <p class="text-gray-900 whitespace-no-wrap">
+                              {{ vote.name }}
+                            </p>
                           </div>
                         </div>
                       </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">168</p>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap text-center">
+                          {{ vote.fulltime }}
+                        </p>
                       </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">21</p>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap text-center">
+                          {{ vote.mentoring }}
+                        </p>
                       </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">15</p>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap text-center">
+                          {{ vote.responsibility }}
+                        </p>
                       </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">10</p>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap text-center">
+                          {{ vote.codestyle }}
+                        </p>
                       </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">214</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">Blake Bowman</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">160</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">18</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">12</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">12</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">202</p>
+                      <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <p class="text-gray-900 whitespace-no-wrap text-center">
+                          {{ vote.result }}
+                        </p>
                       </td>
                     </tr>
-
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1540845511934-7721dd7adec3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">Dana Moore</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">152</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">12</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">15</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">12</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">192</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
-                              alt
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap text-center">Alonzo Cox</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">160</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">12</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">8</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">6</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap text-center">186</p>
-                      </td>
-
-                    </tr>
-
                   </tbody>
                 </table>
               </div>
@@ -177,8 +114,55 @@
 import JetApplicationLogo from "./../Jetstream/ApplicationLogo";
 
 export default {
+  data() {
+    sortParam: "";
+    return {
+      votes: [],
+    };
+  },
+  mounted() {
+    this.getVotes();
+  },
+    computed: {
+      sortedList() {
+        switch (this.sortParam) {
+        case 'name': return this.votes.sort(sortByName);
+        case 'fulltime': return this.votes.sort(sortByFulltime);
+        case 'mentoring': return this.votes.sort(sortByMentoring);
+        case 'responsibility': return this.votes.sort(sortByResponsibility);
+        case 'codestyle': return this.votes.sort(sortByCodestyle);
+        case 'results': return this.votes.sort(sortByResults);
+        default: return this.votes;
+        }
+      }
+    },
+
   components: {
     JetApplicationLogo,
   },
+  methods: {
+    getVotes() {
+      axios
+        .get("/results")
+        .then((response) => {
+          const votes = response.data;
+          this.votes = votes;
+          console.log(this.votes);
+        })
+        .catch((error) => console.log(error));
+    },
+
+    // sortBy() {
+    //   console.log("sortByLog", this.votes.sort());
+    // },
+  },
 };
+
+var sortByName = function (d1, d2) {return (d1.name.toLowerCase() > d2.name.toLowerCase()) ? 1 : -1;};
+var sortByFulltime = function (d1, d2) {return (d1.fulltime.toLowerCase() > d2.fulltime.toLowerCase()) ? 1 : -1;};
+var sortByMentoring = function (d1, d2) {return (d1.mentoring.toLowerCase() > d2.mentoring.toLowerCase()) ? 1 : -1;};
+var sortByResponsibility = function (d1, d2) {return (d1.responsibility.toLowerCase() > d2.responsibility.toLowerCase()) ? 1 : -1;};
+var sortByCodestyle = function (d1, d2) {return (d1.codestyle.toLowerCase() > d2.codestyle.toLowerCase()) ? 1 : -1;};
+var sortByResults = function (d1, d2) {return (d1.results.toLowerCase() > d2.results.toLowerCase()) ? 1 : -1;};
+
 </script>

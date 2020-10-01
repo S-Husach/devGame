@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,42 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'mentoring',
+        'responsibility',
+        'codestyle',
+        'result'
     ];
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'voted_for_id', 'id');
+    }
+
+    public function getMentoringAttribute()
+    {
+
+        return $mentoring = $this->votes()->whereHas('category', function (Builder $query) {
+            $query->where('name', 'mentoring');
+        })->sum('vote_value');
+    }
+
+    public function getResponsibilityAttribute()
+    {
+        return $responsibility = $this->votes()->whereHas('category', function (Builder $query) {
+            $query->where('name', 'responsibility');
+        })->sum('vote_value');
+    }
+
+    public function getCodestyleAttribute()
+    {
+        return $codestyle = $this->votes()->whereHas('category', function (Builder $query) {
+            $query->where('name', 'codestyle');
+        })->sum('vote_value');
+    }
+
+    public function getResultAttribute()
+    {
+        $result = $this->mentoring + $this->responsibility + $this->codestyle + $this->fulltime;
+        return number_format($result, 2);
+    }
 }
