@@ -140,12 +140,14 @@ export default {
       voteForm: [],
     };
   },
+
   mounted() {
     this.getUsers();
     this.$on("submitForm", () => {
       this.submitForm();
     });
   },
+
   methods: {
     getUsers() {
       axios
@@ -167,21 +169,18 @@ export default {
     },
 
     submitForm() {
-      console.log("voteFormAxios", this.voteForm)
-
       var filteredVoteResults = this.voteForm.filter(
         (e) => e.mentoring || e.responsibility || e.codestyle !== false
       );
-      console.log("filteredVoteResults", filteredVoteResults);
-
       axios
       .post("/votes", filteredVoteResults)
       .then((response) => {
-      console.log('response', response)
+      console.log('new vote added')
       })
       .catch((error) => console.log('axios error', error));
     },
   },
+
   components: {
     JetApplicationLogo,
   },

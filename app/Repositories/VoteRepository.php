@@ -11,47 +11,35 @@ class VoteRepository
 {
 
     /**
-     * Display a listing of the resource.
+     * Return a listing of users for the vote table.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function getVoteList()
     {
         return User::all();
-        // orderBy('fulltime', 'desc')
-        //     ->take(21)
-        //     ->get();
     }
 
+    /**
+     * Return a listing of users for the dashboard table.
+     *
+     * @return void
+     */
     public function getResultsList()
     {
         return User::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Add votes to DB
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param float $value
+     * @return void
      */
     public function submit(Request $request, $value)
     {
-        //counter for vote value
-
-        // $count = 0;
-        // foreach ($request->all() as $req) {
-        //     foreach ($req as $el) {
-        //         if ($el === true) {
-        //             ++$count;
-        //         }
-        //     }
-        // }
-        // $value = 12/$count;
-
-        //add new vote
-
         foreach ($request->all() as $req) {
-
             if ($req["mentoring"]) {
                 Vote::create([
                     'voter_id' => auth()->user()->id,
@@ -60,7 +48,6 @@ class VoteRepository
                     'vote_value' => $value
                 ]);
             }
-
             if ($req["responsibility"]) {
                 Vote::create([
                     'voter_id' => auth()->user()->id,
@@ -69,7 +56,6 @@ class VoteRepository
                     'vote_value' => $value
                 ]);
             }
-
             if ($req["codestyle"]) {
                 Vote::create([
                     'voter_id' => auth()->user()->id,

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vote;
-use App\Models\User;
 use App\Services\VoteService;
 use App\Repositories\VoteRepository;
 
@@ -30,15 +28,20 @@ class VoteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Return the vote forn
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
         return $this->voteService->formatVoteList();
     }
 
+    /**
+     * Return results to dashboard
+     *
+     * @return void
+     */
     public function results()
     {
         return $this->voteService->formatResultsList();

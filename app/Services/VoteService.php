@@ -20,17 +20,32 @@ class VoteService
         $this->voteRepository = $voteRepository;
     }
 
-
+    /**
+     * Calls repository for vote table
+     *
+     * @return void
+     */
     public function formatVoteList()
     {
         return $this->voteRepository->getVoteList();
     }
 
+    /**
+     * Calls repository for dashboard table
+     *
+     * @return void
+     */
     public function formatResultsList()
     {
         return $this->voteRepository->getResultsList();
     }
 
+    /**
+     * Calls repository for vote submit
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
     public function submitProcessing(Request $request)
     {
         $count = 0;

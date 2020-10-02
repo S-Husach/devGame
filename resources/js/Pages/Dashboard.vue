@@ -11,11 +11,12 @@
             <div class="flex flex-row mb-8 sm:mb-0 ml-5">
               <div class="relative">
                 <select
+                  @change="onChange($event)"
                   class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 >
-                  <option>5</option>
-                  <option>10</option>
-                  <option>20</option>
+                  <option value='3'>3</option>
+                  <option value="7">7</option>
+                  <option value="21">21</option>
                 </select>
                 <div
                   class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -68,7 +69,7 @@
                 </svg>
               </span>
               <input
-                placeholder="Search"
+                placeholder="Search by name"
                 class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
               />
             </div>
@@ -82,7 +83,7 @@
         <!-- Table into the card -->
 
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <welcome />
+          <dashboard-table ref="dashboardtable" />
         </div>
 
         <!-- Pagination buttons -->
@@ -94,12 +95,12 @@
             >Showing 1 to 4 of 50 Entries</span
           >
           <div class="inline-flex mt-2 xs:mt-0">
-            <button
+            <button v-on:click="prevPage"
               class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"
             >
               Prev
             </button>
-            <button
+            <button v-on:click="nextPage"
               class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"
             >
               Next
@@ -113,14 +114,29 @@
 
 <script>
 import AppLayout from "./../Layouts/AppLayout";
-import Welcome from "./../Jetstream/Welcome";
+import DashboardTable from "./../Jetstream/DashboardTable";
 
 export default {
 
+  methods: {
+    onChange(event) {
+        console.log(event.target.value)
+     },
+
+    prevPage() {
+      this.$refs.dashboardtable.$emit("prevPage");
+    },
+
+    nextPage() {
+      this.$refs.dashboardtable.$emit("nextPage");
+    },
+  },
+
   components: {
     AppLayout,
-    Welcome,
+    DashboardTable,
   },
+
 };
 
 </script>

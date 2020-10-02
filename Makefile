@@ -18,6 +18,7 @@ DATE=$(shell date +'%Y-%m-%d')
 
 LIST_OF_CONTAINERS_TO_RUN=nginx mysql redis laravel-horizon workspace
 
+APP_URL=gridpane.test
 
 # some variables that required by installation target
 LARADOCK_REPO=https://github.com/bazavlukd/laradock.git
@@ -62,9 +63,10 @@ install-laradock:
 .PHONY: initial-build
 initial-build:
 	docker exec -it $(WORKSPACE_CONTAINER_NAME) composer install
-	docker exec -it $(PHP_CONTAINER_NAME) bash -c 'php artisan key:generate'
+	docker exec -it $(WORKSPACE_CONTAINER_NAME) bash -c 'php artisan key:generate'
 	docker exec -it $(DB_CONTAINER_NAME) mysql -u root -proot -e "ALTER USER '$(DB_USERNAME)' IDENTIFIED WITH mysql_native_password BY '$(DB_PASSWORD)';";
-	docker exec -it $(PHP_CONTAINER_NAME) bash -c "php artisan migrate --seed"
+	docker exec -it $(DB_CONTAINER_NAME) mysql -u root -proot -e "ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'root';";
+	docker exec -it $(WORKSPACE_CONTAINER_NAME) bash -c "php artisan migrate --seed"
 	docker exec -it $(WORKSPACE_CONTAINER_NAME) npm install
 
 # run all containers
@@ -76,6 +78,7 @@ up:
 .PHONY: down
 down:
 	cd $(LARADOCK) && docker-compose down
+	sed -i "/APP_URL=.*/c\APP_URL=$(APP_URL)" .env
 
 # show laravel's log in realtime
 .PHONY: log
@@ -99,7 +102,11 @@ join-php:
 
 .PHONY: join-db
 join-db:
-	docker exec -it $(DB_CONTAINER_NAME) mysql -u default -p default
+	docker exec -it $(DB_CONTAINER_NAME) mysql -u $(DB_USERNAME) -p$(DB_PASSWORD) $(DB_DATABASE)
+
+.PHONY: join-db-root
+join-db-root:
+	docker exec -it $(DB_CONTAINER_NAME) mysql -u root -proot
 #------------------
 
 # javascript related targets
@@ -136,14 +143,18 @@ horizon:
 key-generate:
 	docker exec -it $(PHP_CONTAINER_NAME) bash -c 'php artisan key:generate'
 
-.PHONY: new-migration
-new-migration:
+.PHONY: migration
+migration:
 	@read -p "Migration name: " migrationname; \
 	docker exec -it $(PHP_CONTAINER_NAME) bash -c "php artisan make:migration $$migrationname";
 
-.PHONY: run-migrations
-run-migrations:
-	docker exec -it $(WORKSPACE_CONTAINER_NAME) bash -c "php artisan migrate"
+.PHONY: migrate
+migrate:
+	docker exec -it $(PHP_CONTAINER_NAME) bash -c "php artisan migrate"
+
+.PHONY: rollback
+rollback:
+	docker exec -it $(PHP_CONTAINER_NAME) bash -c "php artisan migrate:rollback --step=1"
 
 .PHONY: run-seeds
 run-seeds:
@@ -168,4 +179,13 @@ composer-install:
 # run ngrok to expose nginx webserver on port 80
 .PHONY: up-ngrok
 up-ngrok:
-	docker exec -it $(WORKSPACE_CONTAINER_NAME) ngrok http http://nginx:80
+	docker exec -dit $(WORKSPACE_CONTAINER_NAME) ngrok http http://nginx:80 && sleep 1
+	docker exec -it $(WORKSPACE_CONTAINER_NAME) curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"https...([^"]*).*/\1/p' >> ngrokurl.txt
+	docker exec -it $(WORKSPACE_CONTAINER_NAME) sed -i "/APP_URL=.*/c\APP_URL=$$(<ngrokurl.txt)/" .env && sleep 1 && rm ngrokurl.txt
+
+.PHONY: to-dev
+to-dev:
+	git checkout dev
+	git pull
+	docker exec -dit $(WORKSPACE_CONTAINER_NAME) rm -rf ./vendor
+	docker exec -dit $(WORKSPACE_CONTAINER_NAME) composer install
