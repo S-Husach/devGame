@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use KABBOUCHI\NovaImpersonate\Impersonate;
 
 class User extends Resource
@@ -50,6 +51,10 @@ class User extends Resource
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            Number::make('Fulltime')
+                ->sortable()
+                ->nullable(),
 
             Text::make('Email')
                 ->sortable()
