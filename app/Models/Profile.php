@@ -11,11 +11,11 @@ class Profile extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function contract()
     {
-        return $this->hasOne(Contract::class, 'contract_id', 'id');
+        return $this->belongsTo(Contract::class, 'contract_id', 'id');
     }
 }

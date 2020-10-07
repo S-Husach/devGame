@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -44,11 +46,13 @@ class Profile extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            Number::make('User', 'user_id')
+            BelongsTo::make('User', 'user', User::class)
                 ->sortable(),
 
-            Number::make('Contract', 'contract_id')
-                ->sortable(),
+            BelongsTo::make('Contract')
+            ->sortable(),
+            // Number::make('Contract', 'contract_id')
+            //     ->sortable(),
 
             Text::make('Login', 'login')
                 ->sortable(),

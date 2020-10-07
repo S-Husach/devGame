@@ -23,7 +23,7 @@ class Contract extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'job_title';
 
     /**
      * The columns that should be searched.
@@ -45,9 +45,7 @@ class Contract extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            // BelongsTo::make('Client', 'client', Client::class)
-            //     ->sortable(),
-            Number::make('Client', 'client_id')
+            BelongsTo::make('Client', 'client', Client::class)
                 ->sortable(),
 
             Text::make('Job title', 'job_title')
@@ -77,7 +75,9 @@ class Contract extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new Filters\ContractClient,
+        ];
     }
 
     /**

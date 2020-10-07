@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use DateTime;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -45,13 +46,13 @@ class Contracts_history extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            Number::make('User', 'user_id')
+            BelongsTo::make('User', 'user', User::class)
+            ->sortable(),
+
+            BelongsTo::make('Profile')
                 ->sortable(),
 
-            Number::make('Profile', 'profile_id')
-                ->sortable(),
-
-            Number::make('Contract', 'contract_id')
+            BelongsTo::make('Contract')
                 ->sortable(),
             ];
     }
